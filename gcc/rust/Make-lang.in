@@ -78,7 +78,7 @@ GRS_OBJS = \
     rust/rust-pattern.o \
     rust/rust-ast-fragment.o \
     rust/rust-ast-dump.o \
-    rust/rust-ast-tokenstream.o \
+    rust/rust-ast-collector.o \
     rust/rust-hir-dump.o \
     rust/rust-session-manager.o \
     rust/rust-compile.o \
@@ -94,6 +94,7 @@ GRS_OBJS = \
     rust/rust-hir-map.o \
     rust/rust-attributes.o \
     rust/rust-abi.o \
+    rust/rust-token-converter.o \
 	rust/rust-macro.o \
     rust/rust-ast-lower.o \
     rust/rust-ast-lower-base.o \

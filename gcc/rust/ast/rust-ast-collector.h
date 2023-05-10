@@ -16,21 +16,21 @@
 // along with GCC; see the file COPYING3.  If not see
 // <http://www.gnu.org/licenses/>.
 
+#ifndef RUST_AST_COLLECTOR_H
+#define RUST_AST_COLLECTOR_H
+
 #include "rust-token.h"
 #include "rust-ast-visitor.h"
 #include "rust-ast.h"
 #include "rust-ast-full.h"
 
-#ifndef RUST_AST_TOKENSTREAM_H
-#define RUST_AST_TOKENSTREAM_H
-
 namespace Rust {
 namespace AST {
 
-class TokenStream : public ASTVisitor
+class TokenCollector : public ASTVisitor
 {
 public:
-  TokenStream (std::vector<TokenPtr> &container);
+  TokenCollector (std::vector<TokenPtr> &container);
   bool output_trailing_commas = false;
 
   void visit (AST::Crate &crate);
@@ -310,4 +310,4 @@ private:
 
 } // namespace Rust
 
-#endif // !RUST_AST_TOKENSTREAM_H
+#endif // !RUST_AST_COLLECTOR_H
