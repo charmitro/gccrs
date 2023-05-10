@@ -35,7 +35,7 @@
 #include "rust-lint-unused-var.h"
 #include "rust-hir-dump.h"
 #include "rust-ast-dump.h"
-#include "rust-ast-tokenstream.h"
+#include "rust-ast-collector.h"
 #include "rust-export-metadata.h"
 #include "rust-imports.h"
 #include "rust-extern-crate.h"
@@ -937,9 +937,9 @@ Session::dump_tokenstream (AST::Crate &crate) const
       rust_error_at (Linemap::unknown_location (), "cannot open %s:%m; ignored",
 		     kASTDumpTokenStream);
     }
-  std::vector<TokenPtr> tokenstream;
-  AST::TokenStream (tokenstream).visit (crate);
-  for (auto &token : tokenstream)
+  std::vector<TokenPtr> tokens;
+  AST::TokenCollector (tokens).visit (crate);
+  for (auto &token : tokens)
     {
       out << token->as_string () << " ";
     }
