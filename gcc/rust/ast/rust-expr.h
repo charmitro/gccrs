@@ -2470,10 +2470,6 @@ public:
 
   size_t num_statements () const { return statements.size (); }
 
-  // TODO: this mutable getter seems really dodgy. Think up better way.
-  const std::vector<Attribute> &get_inner_attrs () const { return inner_attrs; }
-  std::vector<Attribute> &get_inner_attrs () { return inner_attrs; }
-
   const std::vector<std::unique_ptr<Stmt> > &get_statements () const
   {
     return statements;
@@ -2489,6 +2485,10 @@ public:
 
   // Removes the tail expression from the block.
   void strip_tail_expr ();
+
+  // TODO: this mutable getter seems really dodgy. Think up better way.
+  const std::vector<Attribute> &get_inner_attrs () const { return inner_attrs; }
+  std::vector<Attribute> &get_inner_attrs () { return inner_attrs; }
 
   const std::vector<Attribute> &get_outer_attrs () const { return outer_attrs; }
   std::vector<Attribute> &get_outer_attrs () override { return outer_attrs; }

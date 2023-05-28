@@ -34,8 +34,22 @@ public:
   void go (HIR::Crate &crate);
 
 private:
+  bool beg_of_line;
   Indent indentation;
   std::ostream &stream;
+
+  void put(std::string name, bool newline=true);
+
+  enum delim {
+    CURLY = 0,
+    SQUARE = 1,
+  };
+
+  void begin(std::string name, enum delim = SQUARE);
+  void end(std::string name, enum delim = SQUARE);
+
+  void do_inner_attrs(std::vector<AST::Attribute> &attrs);
+
 
   void visit (AST::Attribute &attribute);
   virtual void visit (Lifetime &) override;

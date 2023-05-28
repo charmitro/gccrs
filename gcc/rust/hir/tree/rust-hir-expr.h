@@ -2166,6 +2166,8 @@ public:
 
   std::string as_string () const override;
 
+  AST::AttrVec get_inner_attrs () const { return inner_attrs; }
+
   // Returns whether the block contains statements.
   bool has_statements () const { return !statements.empty (); }
 
