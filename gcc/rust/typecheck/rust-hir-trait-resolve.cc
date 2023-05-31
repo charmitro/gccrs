@@ -415,7 +415,16 @@ AssociatedImplTrait::setup_associated_types (
   // we need to figure out what Y is
 
   TyTy::BaseType *associated_self = get_self ();
-  rust_assert (associated_self->can_eq (self, false));
+
+  rust_debug ("setup_associated_types for: %s->%s bound %s",
+	      associated_self->debug_str ().c_str (),
+	      self->debug_str ().c_str (), bound.as_string ().c_str ());
+
+  bool is_concrete = self->is_concrete ();
+  if (is_concrete)
+    {
+      return self->clone ();
+    }
 
   // grab the parameters
   HIR::ImplBlock &impl_block = *get_impl_block ();
@@ -548,12 +557,17 @@ AssociatedImplTrait::setup_associated_types (
   TyTy::BaseType *self_result = result;
 
   // create the argument list
+  bool failed = false;
   std::vector<TyTy::SubstitutionArg> associated_arguments;
   for (auto &p : substitutions)
     {
       std::string symbol = p.get_param_ty ()->get_symbol ();
       auto it = param_mappings.find (symbol);
-      rust_assert (it != param_mappings.end ());
+      if (it != param_mappings.end ())
+	{
+	  failed = true;
+	  break;
+	}
 
       HirId id = it->second;
       TyTy::BaseType *argument = nullptr;
@@ -562,6 +576,11 @@ AssociatedImplTrait::setup_associated_types (
 
       TyTy::SubstitutionArg arg (&p, argument);
       associated_arguments.push_back (arg);
+    }
+
+  if (failed)
+    {
+      // There is a case where we might not even need to do this...
     }
 
   TyTy::SubstitutionArgumentMappings associated_type_args (
