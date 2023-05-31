@@ -86,6 +86,9 @@ TypeCheckItem::visit (HIR::TypeAlias &alias)
       ResolveWhereClauseItem::Resolve (*where_clause_item.get ());
     }
   infered = actual_type;
+
+  rust_debug_loc (alias.get_locus (), "XXXXXXXXXX");
+  actual_type->debug ();
 }
 
 void
