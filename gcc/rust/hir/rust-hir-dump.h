@@ -38,18 +38,18 @@ private:
   Indent indentation;
   std::ostream &stream;
 
-  void put(std::string name, bool newline=true);
+  void put (std::string name, bool newline = true);
 
-  enum delim {
+  enum delim
+  {
     CURLY = 0,
     SQUARE = 1,
   };
 
-  void begin(std::string name, enum delim = SQUARE);
-  void end(std::string name, enum delim = SQUARE);
+  void begin (std::string name, enum delim = SQUARE);
+  void end (std::string name, enum delim = SQUARE);
 
-  void do_inner_attrs(std::vector<AST::Attribute> &attrs);
-
+  void do_inner_attrs (std::vector<AST::Attribute> &attrs);
 
   void visit (AST::Attribute &attribute);
   virtual void visit (Lifetime &) override;

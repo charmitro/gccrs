@@ -2877,7 +2877,7 @@ protected:
 
 // Loop label expression HIR node used with break and continue expressions
 // TODO: inline?
-class LoopLabel /*: public Node*/
+class LoopLabel	  /*: public Node*/
 {
   Lifetime label; // or type LIFETIME_OR_LABEL
 
